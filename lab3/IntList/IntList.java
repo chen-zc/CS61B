@@ -4,18 +4,18 @@ import java.util.Formatter;
  * A naked recursive list of integers, similar to what we saw in lecture 3, but
  * with a large number of additional methods.
  *
- * @author P. N. Hilfinger, with some modifications by Josh Hug and melaniecebula
+ * @author P.N.Hilfinger, with some modifications by Josh Hug and melaniecebula
  *         [Do not modify this file.]
  */
 public class IntList {
     /**
      * First element of list.
      */
-    public int first;
+    private int first;
     /**
      * Remaining elements of list.
      */
-    public IntList rest;
+    private IntList rest;
 
     /**
      * A List with first FIRST0 and rest REST0.
@@ -92,7 +92,7 @@ public class IntList {
 
     public static IntList dcatenate(IntList A, IntList B) {
         if (A == null) {
-          return null;
+            return null;
         }
         if (A.rest == null) {
             A.rest = B;
@@ -102,21 +102,26 @@ public class IntList {
         return A;
     }
 
+    /**
+     *
+     * @param L
+     */
 
+    public static void reverse(IntList L) {
+        if (L == null || L.rest == null) {
+            return;
+        }
 
+        IntList temp = L.rest;
+        L.rest = null;
 
-
-
-
-
-
-
-
-
-
-
-
-
+        while (temp != null) {
+            IntList p = temp.rest;
+            temp.rest = L;
+            L = temp;
+            temp = p;
+        }
+    }
 
 
     /**
@@ -178,7 +183,7 @@ public class IntList {
      * If a cycle exists in the IntList, this method
      * returns an integer equal to the item number of the location where the
      * cycle is detected.
-     * <p>
+     * @param A
      * If there is no cycle, the number 0 is returned instead. This is a
      * utility method for lab2. You are not expected to read, understand, or
      * even use this method. The point of this method is so that if you convert
