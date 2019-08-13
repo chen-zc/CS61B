@@ -1,9 +1,6 @@
 package creatures;
 
-import huglife.Creature;
-import huglife.Direction;
-import huglife.Action;
-import huglife.Occupant;
+import huglife.*;
 
 import java.awt.Color;
 import java.util.ArrayDeque;
@@ -57,7 +54,9 @@ public class Plip extends Creature {
      * that you get this exactly correct.
      */
     public Color color() {
-        g = 63;
+        g = 63 + 96 * (int) Math.round(this.energy);
+        r = 99;
+        b = 76;
         return color(r, g, b);
     }
 
@@ -75,6 +74,10 @@ public class Plip extends Creature {
      */
     public void move() {
         // TODO
+        this.energy -= 0.15;
+        if (this.energy < 0) {
+            this.energy = 0;
+        }
     }
 
 
@@ -83,6 +86,10 @@ public class Plip extends Creature {
      */
     public void stay() {
         // TODO
+        this.energy += 0.2;
+        if (this.energy > 2) {
+            this.energy = 2;
+        }
     }
 
     /**
@@ -91,7 +98,9 @@ public class Plip extends Creature {
      * Plip.
      */
     public Plip replicate() {
-        return this;
+        Plip replicate = new Plip(this.energy/2);
+        this.energy = this.energy/2;
+        return replicate;
     }
 
     /**
@@ -112,17 +121,33 @@ public class Plip extends Creature {
         Deque<Direction> emptyNeighbors = new ArrayDeque<>();
         boolean anyClorus = false;
         // TODO
-        // (Google: Enhanced for-loop over keys of NEIGHBORS?)
-        // for () {...}
+        boolean isempty = false;
+        for (Map.Entry<Direction, Occupant> entry: neighbors.entrySet()) {
+            Direction key = entry.getKey();
+            Occupant value = entry.getValue();
+            if (value.name().equals("empty")) {
+                isempty = true;
+                emptyNeighbors.addLast(key);
+            }
+            if (value.name().equals("clorus")) {
+                anyClorus = true;
+            }
+        }
 
-        if (false) { // FIXME
-            // TODO
+        if (isempty == false) { // FIXME
+            return new Action(Action.ActionType.STAY);
         }
 
         // Rule 2
         // HINT: randomEntry(emptyNeighbors)
+        if (this.energy >= 1) {
+            return new Action(Action.ActionType.REPLICATE, HugLifeUtils.randomEntry(emptyNeighbors));
+        }
 
         // Rule 3
+        if (anyClorus == true && Math.random() < 0.5) {
+            return new Action(Action.ActionType.MOVE, HugLifeUtils.randomEntry(emptyNeighbors));
+        }
 
         // Rule 4
         return new Action(Action.ActionType.STAY);
