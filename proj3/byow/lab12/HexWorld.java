@@ -1,15 +1,14 @@
 package byow.lab12;
-import org.junit.Test;
-import static org.junit.Assert.*;
+        import org.junit.Test;
+        import static org.junit.Assert.*;
 
-import byow.TileEngine.TERenderer;
-import byow.TileEngine.TETile;
-import byow.TileEngine.Tileset;
+        import byow.TileEngine.TERenderer;
+        import byow.TileEngine.TETile;
+        import byow.TileEngine.Tileset;
 
 
-import javax.swing.text.Position;
-import
-import java.util.Random;
+        import javax.swing.text.Position;
+        import java.util.Random;
 
 /**
  * Draws a world consisting of hexagonal regions.
@@ -38,6 +37,7 @@ public class HexWorld {
         return -effectiveI;
     }
 
+    /**
     public static void addHexagon(TETile[][] world, Position p, int s, TETile t) {
         for (int y = 0; y < 2*s; y += 1) {
             int thisRowY = p.y + y;
@@ -51,5 +51,5 @@ public class HexWorld {
                 world[xi][yi] = TETile.colorVariant(t, 32, 32, 32, RANDOM);
             }
         }
-    }
+    }*/
 }
