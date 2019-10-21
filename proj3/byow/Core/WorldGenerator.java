@@ -33,6 +33,8 @@ import java.util.Random;
 
 public class WorldGenerator {
 
+    public static Position Ava;
+
     public static class Position {
         int X, Y;
 
@@ -68,7 +70,7 @@ public class WorldGenerator {
             x = random.nextInt(world.length);
             y = random.nextInt(world[0].length);
         }
-        Position Ava = new Position(x, y);
+        Ava = new Position(x, y);
         world[x][y] = Tileset.AVATAR;
     }
 
